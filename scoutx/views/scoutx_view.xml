@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Views for scoutx.period -->
+        <record model="ir.ui.view" id="scoutx_period_tree_view">
+            <field name="name">scoutx.period.tree</field>
+            <field name="model">scoutx.period</field>
+            <field name="arch" type="xml">
+                <tree string="Periods">
+                    <field name="name"/>
+                    <field name="start_date"/>
+                    <field name="end_date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="scoutx_period_form_view">
+            <field name="name">scoutx.period.form</field>
+            <field name="model">scoutx.period</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Views for scoutx.section -->
+        <record model="ir.ui.view" id="scoutx_section_tree_view">
+            <field name="name">scoutx.section.tree</field>
+            <field name="model">scoutx.section</field>
+            <field name="arch" type="xml">
+                <tree string="Sections">
+                    <field name="name"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="scoutx_section_form_view">
+            <field name="name">scoutx.section.form</field>
+            <field name="model">scoutx.section</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_title oe_left">
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name" />
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="description"/>
+                            <field name="start_age"/>
+                            <field name="end_age"/>
+                            <field name="gender"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Views for scoutx.inscription -->
+        <record model="ir.ui.view" id="scoutx_inscription_tree_view">
+            <field name="name">scoutx.inscription.tree</field>
+            <field name="model">scoutx.inscription</field>
+            <field name="arch" type="xml">
+                <tree string="Sections">
+                    <field name="function_id"/>
+                    <field name="section_id"/>
+                    <field name="period_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="scoutx_inscription_form_view">
+            <field name="name">scoutx.inscription.form</field>
+            <field name="model">scoutx.inscription</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="function_id"/>
+                            <field name="section_id"/>
+                            <field name="period_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Actions for scoutx.function -->
+        <record model="ir.actions.act_window" id="action_scoutx_function">
+            <field name="name">Status</field>
+            <field name="res_model">scoutx.function</field>
+            <field name='view_mode'>tree</field>
+        </record>
+
+        <!-- Actions for scoutx.period -->
+        <record model="ir.actions.act_window" id="action_scoutx_period">
+            <field name="name">Periods</field>
+            <field name="res_model">scoutx.period</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <!-- Actions for scoutx.section -->
+        <record model="ir.actions.act_window" id="action_scoutx_section">
+            <field name="name">Section</field>
+            <field name="res_model">scoutx.section</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+        <!-- Actions for scoutx.inscription -->
+        <record model="ir.actions.act_window" id="action_scoutx_inscription">
+            <field name="name">Participations</field>
+            <field name="res_model">scoutx.inscription</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+        </record>
+
+
+
+        <!-- Menu items -->
+        <menuitem name="ScoutX"
+          id="scoutx.main_menu"
+          groups="base.group_user"
+          sequence="10"/>
+
+        <menuitem id="scoutx.members_main_menu" name="Members" parent="scoutx.main_menu" groups="base.group_user" sequence="10"/>
+
+        <record id="member_list_all" model="ir.ui.menu">
+          <field name="name">Members</field>
+          <field name="sequence" eval="16"/>
+          <field name="action" ref="action_scoutx_members"/>
+          <field name="parent_id" ref="scoutx.members_main_menu"/>
+        </record>
+
+        <record id="function_list_all" model="ir.ui.menu">
+          <field name="name">Functions</field>
+          <field name="sequence" eval="17"/>
+          <field name="action" ref="action_scoutx_function"/>
+          <field name="parent_id" ref="scoutx.members_main_menu"/>
+        </record>
+
+        <record id="section_list_all" model="ir.ui.menu">
+          <field name="name">Sections</field>
+          <field name="sequence" eval="17"/>
+          <field name="action" ref="action_scoutx_section"/>
+          <field name="parent_id" ref="scoutx.members_main_menu"/>
+        </record>
+
+    </data>
+</openerp>

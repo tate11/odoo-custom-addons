@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data noupdate="1">
+
+        <!-- Function Data -->
+        <record id="function_animated" model="scoutx.function">
+            <field name="name">Animated</field>
+            <field name="description">The kids, children, ...</field>
+        </record>
+
+        <record id="function_chief" model="scoutx.function">
+            <field name="name">Chief</field>
+            <field name="description">The Chief, the animator</field>
+        </record>
+
+        <record id="function_parent" model="scoutx.function">
+            <field name="name">Parents</field>
+            <field name="description">Parents of the kids</field>
+        </record>
+
+        <record id="function_ancient_chief" model="scoutx.function">
+            <field name="name">Ancient Chief</field>
+            <field name="description">The old animator</field>
+        </record>
+
+        <record id="function_cu" model="scoutx.function">
+            <field name="name">CU</field>
+            <field name="description">The person in charge of the chiefs</field>
+        </record>
+
+        <!-- Section Data -->
+        <record id="section_nuton" model="scoutx.section">
+            <field name="name">Nuton</field>
+            <field name="description">The youngest kids !</field>
+            <field name="start_age">5</field>
+            <field name="end_age">7</field>
+            <field name="gender">mixte</field>
+        </record>
+
+        <record id="section_lutin" model="scoutx.section">
+            <field name="name">Lutin</field>
+            <field name="description">The youngest Girls !</field>
+            <field name="start_age">8</field>
+            <field name="end_age">12</field>
+            <field name="gender">female</field>
+        </record>
+
+        <record id="section_louveteau" model="scoutx.section">
+            <field name="name">Louveteau</field>
+            <field name="description">The youngest Boys !</field>
+            <field name="start_age">8</field>
+            <field name="end_age">12</field>
+            <field name="gender">male</field>
+        </record>
+
+        <record id="section_guide" model="scoutx.section">
+            <field name="name">Guide</field>
+            <field name="description">The Teen Girls !</field>
+            <field name="start_age">12</field>
+            <field name="end_age">16</field>
+            <field name="gender">female</field>
+        </record>
+
+        <record id="section_scout" model="scoutx.section">
+            <field name="name">Scout</field>
+            <field name="description">The Teen Boys !</field>
+            <field name="start_age">12</field>
+            <field name="end_age">16</field>
+            <field name="gender">male</field>
+        </record>
+
+        <record id="section_horizon" model="scoutx.section">
+            <field name="name">Horizon</field>
+            <field name="description">The Teens</field>
+            <field name="start_age">16</field>
+            <field name="end_age">18</field>
+            <field name="gender">mixte</field>
+        </record>
+    </data>
+</openerp>

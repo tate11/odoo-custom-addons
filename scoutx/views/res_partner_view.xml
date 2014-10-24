@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Customized the partner form view (complete replacement) -->
+        <record model="ir.ui.view" id="res_partner_form_view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="replace">
+                    <form string="Partners">
+                        <sheet>
+                            <field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
+                            <div class="oe_title oe_left">
+                                <h1>
+                                    <field name="name" default_focus="1" placeholder="Name" />
+                                </h1>
+                                <h3>
+                                    <field name="totem" placeholder="Totem"/>
+                                </h3>
+                                <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
+                            </div>
+                            <!-- state button -->
+                            <div class="oe_right oe_button_box" name="buttons">
+
+                            </div>
+
+                            <group>
+                                <group>
+                                    <label for="street" string="Address"/>
+                                    <div>
+                                        <field name="street" placeholder="Street..."/>
+                                        <field name="street2"/>
+                                        <div class="address_format">
+                                            <field name="city" placeholder="City" style="width: 40%%"/>
+                                            <field name="state_id" class="oe_no_button" placeholder="State" style="width: 37%%" options='{"no_open": True}' on_change="onchange_state(state_id)"/>
+                                            <field name="zip" placeholder="ZIP" style="width: 20%%"/>
+                                        </div>
+                                        <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
+                                    </div>
+                                    <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
+                                </group>
+                                <group>
+                                    <field name="phone" placeholder="e.g. +32.81.81.37.00"/>
+                                    <field name="mobile"/>
+                                    <field name="fax"/>
+                                    <field name="user_ids" invisible="1"/>
+                                    <field name="email" widget="email" />
+                                    <field name="title" options='{"no_open": True}'/>
+                                </group>
+                            </group>
+
+                            <notebook colspan="4">
+                                <page name='internal_notes' string="Internal Notes">
+                                    <field name="comment" placeholder="Put an internal note..."/>
+                                </page>
+                                <page string="Family">
+                                    <group>
+                                        <field name="mother_id"/>
+                                        <field name="father_id"/>
+                                    </group>
+                               </page>
+                                <page name='scoutx_inscription' string="Inscriptions">
+                                    <field name="inscription_ids"/>
+                                </page>
+                            </notebook>
+                        </sheet>
+                    </form>
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Views for res.partner -->
+        <record model="ir.ui.view" id="res_partner_tree_view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Partners">
+                    <field name="name"/>
+                    <field name="email"/>
+                    <field name="totem"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- Actions for res.partner -->
+        <record model="ir.actions.act_window" id="action_scoutx_members">
+            <field name="name">Members</field>
+            <field name="res_model">res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="view_id" ref="res_partner_tree_view"/>
+           <!-- <field name="context">{'type':'out_invoice'}</field>
+            <field name="search_view_id" ref="view_account_invoice_filter"/>-->
+        </record>
+
+
+
+    </data>
+</openerp>
