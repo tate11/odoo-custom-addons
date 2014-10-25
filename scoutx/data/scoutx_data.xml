@@ -3,27 +3,29 @@
     <data noupdate="1">
 
         <!-- Function Data -->
-        <record id="function_animated" model="scoutx.function">
+        <record id="function_animated" model="scoutx.role">
             <field name="name">Animated</field>
             <field name="description">The kids, children, ...</field>
+            <field name="is_section_function">True</field>
         </record>
 
-        <record id="function_chief" model="scoutx.function">
+        <record id="function_chief" model="scoutx.role">
             <field name="name">Chief</field>
             <field name="description">The Chief, the animator</field>
+            <field name="is_section_function">True</field>
         </record>
 
-        <record id="function_parent" model="scoutx.function">
+        <record id="function_parent" model="scoutx.role">
             <field name="name">Parents</field>
             <field name="description">Parents of the kids</field>
         </record>
 
-        <record id="function_ancient_chief" model="scoutx.function">
+        <record id="function_ancient_chief" model="scoutx.role">
             <field name="name">Ancient Chief</field>
             <field name="description">The old animator</field>
         </record>
 
-        <record id="function_cu" model="scoutx.function">
+        <record id="function_cu" model="scoutx.role">
             <field name="name">CU</field>
             <field name="description">The person in charge of the chiefs</field>
         </record>

@@ -52,6 +52,10 @@
                                 </group>
                             </group>
 
+                            <group string="ScoutX">
+                                 <field name="role_id"/>
+                            </group>
+
                             <notebook colspan="4">
                                 <page name='internal_notes' string="Internal Notes">
                                     <field name="comment" placeholder="Put an internal note..."/>

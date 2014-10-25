@@ -2,6 +2,34 @@
 <openerp>
     <data>
 
+        <!-- Views for scoutx.role -->
+        <record model="ir.ui.view" id="scoutx_role_tree_view">
+            <field name="name">scoutx.role.tree</field>
+            <field name="model">scoutx.role</field>
+            <field name="arch" type="xml">
+                <tree string="Roles">
+                    <field name="name"/>
+                    <field name="is_section_function"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="scoutx_role_form_view">
+            <field name="name">scoutx.role.form</field>
+            <field name="model">scoutx.role</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="is_section_function"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
         <!-- Views for scoutx.period -->
         <record model="ir.ui.view" id="scoutx_period_tree_view">
             <field name="name">scoutx.period.tree</field>
@@ -71,7 +99,7 @@
             <field name="model">scoutx.inscription</field>
             <field name="arch" type="xml">
                 <tree string="Sections">
-                    <field name="function_id"/>
+                    <field name="role_id"/>
                     <field name="section_id"/>
                     <field name="period_id"/>
                 </tree>
@@ -85,7 +113,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="function_id"/>
+                            <field name="role_id"/>
                             <field name="section_id"/>
                             <field name="period_id"/>
                             <field name="partner_id"/>
@@ -96,11 +124,11 @@
         </record>
 
 
-        <!-- Actions for scoutx.function -->
-        <record model="ir.actions.act_window" id="action_scoutx_function">
-            <field name="name">Status</field>
-            <field name="res_model">scoutx.function</field>
-            <field name='view_mode'>tree</field>
+        <!-- Actions for scoutx.role -->
+        <record model="ir.actions.act_window" id="action_scoutx_role">
+            <field name="name">Roles</field>
+            <field name="res_model">scoutx.role</field>
+            <field name='view_mode'>tree,form</field>
         </record>
 
         <!-- Actions for scoutx.period -->
@@ -145,9 +173,9 @@
         </record>
 
         <record id="function_list_all" model="ir.ui.menu">
-          <field name="name">Functions</field>
+          <field name="name">Role</field>
           <field name="sequence" eval="17"/>
-          <field name="action" ref="action_scoutx_function"/>
+          <field name="action" ref="action_scoutx_role"/>
           <field name="parent_id" ref="scoutx.members_main_menu"/>
         </record>
 

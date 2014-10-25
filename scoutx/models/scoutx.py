@@ -4,6 +4,19 @@ from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
 
+class scoutx_role(models.Model):
+
+    _name = 'scoutx.role'
+    _description = 'Status of a person'
+    _rec_name = 'name'
+
+    name = fields.Char(string='Name', required=True)
+    description = fields.Text(string='Description')
+    is_section_function = fields.Boolean('Is a function', default=False,
+        help="True means this role is a function a person can have in a section. (e.i. : section chief, responsible, ...)")
+
+
+#deprec
 class scoutx_function(models.Model):
 
     _name = 'scoutx.function'
@@ -67,6 +80,8 @@ class scoutx_inscription(models.Model):
     # MODEL FIELDS
     # --------------------------------------------------
     function_id = fields.Many2one('scoutx.function', string='Function',
+        help="Function of the person, during the period")
+    role_id = fields.Many2one('scoutx.role', string='Function', domain=[('is_section_function','=',True)],
         help="Function of the person, during the period")
     partner_id = fields.Many2one('res.partner', string='Person', required=True,
         help="Person participating")

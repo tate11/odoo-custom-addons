@@ -23,6 +23,8 @@ class res_partner(models.Model):
     totem = fields.Char(string='Totem')
     birthday = fields.Date(string='Birthdate',
         help="Date of the birth of the person.")
+    role_id = fields.Many2one('scoutx.role', string='Status',
+        help="Status of the person")
 
     inscription_ids = fields.One2many('scoutx.inscription', 'partner_id', string='Inscriptinos',
         help="List of inscriptions")
