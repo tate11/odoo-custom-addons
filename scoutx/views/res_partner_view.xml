@@ -81,12 +81,36 @@
         </record>
 
 
-        <!-- Views for res.partner -->
+        <!-- Tree Views for res.partner -->
         <record model="ir.ui.view" id="res_partner_tree_view">
-            <field name="name">res.partner.tree</field>
+            <field name="name">res.partner.all.tree</field>
             <field name="model">res.partner</field>
             <field name="arch" type="xml">
-                <tree string="Partners">
+                <tree string="Animated">
+                    <field name="name"/>
+                    <field name="role_id"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="res_partner_animated_tree_view">
+            <field name="name">res.partner.animated.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Animated">
+                    <field name="name"/>
+                    <field name="section_id"/>
+                    <field name="gender"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="res_partner_chief_tree_view">
+            <field name="name">res.partner.chief.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Chief">
                     <field name="name"/>
                     <field name="email"/>
                     <field name="totem"/>
@@ -97,13 +121,32 @@
 
         <!-- Actions for res.partner -->
         <record model="ir.actions.act_window" id="action_scoutx_members">
-            <field name="name">Members</field>
+            <field name="name">All Members</field>
             <field name="res_model">res.partner</field>
             <field name='view_type'>form</field>
             <field name='view_mode'>tree,form</field>
             <field name="view_id" ref="res_partner_tree_view"/>
            <!-- <field name="context">{'type':'out_invoice'}</field>
             <field name="search_view_id" ref="view_account_invoice_filter"/>-->
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_scoutx_members_animated">
+            <field name="name">Animated</field>
+            <field name="res_model">res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="domain" eval="[('role_id.id','=', ref('scoutx.function_animated'))]" />
+            <field name="view_id" ref="res_partner_tree_view"/>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_scoutx_members_chief">
+            <field name="name">Chiefs</field>
+            <field name="res_model">res.partner</field>
+            <field name='view_type'>form</field>
+            <field name='view_mode'>tree,form</field>
+            <field name="domain" eval="[('role_id.id','in', [ref('scoutx.function_chief'), ref('scoutx.function_cu')])]" />
+            <field name="view_id" ref="res_partner_tree_view"/>
         </record>
 
 

@@ -164,26 +164,49 @@
           sequence="10"/>
 
         <menuitem id="scoutx.members_main_menu" name="Members" parent="scoutx.main_menu" groups="base.group_user" sequence="10"/>
+        <menuitem id="scoutx.config_main_menu" name="Config" parent="scoutx.main_menu" groups="base.group_user" sequence="15"/>
 
         <record id="member_list_all" model="ir.ui.menu">
-          <field name="name">Members</field>
+          <field name="name">All</field>
           <field name="sequence" eval="16"/>
           <field name="action" ref="action_scoutx_members"/>
           <field name="parent_id" ref="scoutx.members_main_menu"/>
         </record>
 
+        <record id="member_list_animated" model="ir.ui.menu">
+          <field name="name">Animated</field>
+          <field name="sequence" eval="17"/>
+          <field name="action" ref="action_scoutx_members_animated"/>
+          <field name="parent_id" ref="scoutx.members_main_menu"/>
+        </record>
+
+        <record id="member_list_chief" model="ir.ui.menu">
+          <field name="name">Chiefs</field>
+          <field name="sequence" eval="17"/>
+          <field name="action" ref="action_scoutx_members_chief"/>
+          <field name="parent_id" ref="scoutx.members_main_menu"/>
+        </record>
+
+
         <record id="function_list_all" model="ir.ui.menu">
           <field name="name">Role</field>
-          <field name="sequence" eval="17"/>
+          <field name="sequence" eval="15"/>
           <field name="action" ref="action_scoutx_role"/>
-          <field name="parent_id" ref="scoutx.members_main_menu"/>
+          <field name="parent_id" ref="scoutx.config_main_menu"/>
         </record>
 
         <record id="section_list_all" model="ir.ui.menu">
           <field name="name">Sections</field>
           <field name="sequence" eval="17"/>
           <field name="action" ref="action_scoutx_section"/>
-          <field name="parent_id" ref="scoutx.members_main_menu"/>
+          <field name="parent_id" ref="scoutx.config_main_menu"/>
+        </record>
+
+        <record id="period_list_all" model="ir.ui.menu">
+          <field name="name">Periods</field>
+          <field name="sequence" eval="18"/>
+          <field name="action" ref="action_scoutx_period"/>
+          <field name="parent_id" ref="scoutx.config_main_menu"/>
         </record>
 
     </data>

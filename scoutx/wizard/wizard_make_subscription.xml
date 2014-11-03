@@ -36,7 +36,7 @@
             <field name="name">scoutx.make.subscription.line.wizard.tree</field>
             <field name="model">scoutx.make.subscription.line.wizard</field>
             <field name="arch" type="xml">
-                <tree string="Lines" create="0">
+                <tree string="Lines" create="0" edit="0">
                     <field name="partner_name"/>
                     <field name="partner_age"/>
                     <field name="partner_gender"/>
