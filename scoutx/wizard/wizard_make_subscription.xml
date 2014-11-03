@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- scoutx.make.subscription.wizard views -->
+        <record id="scoutx_make_subscription_wizard_form_view" model="ir.ui.view">
+            <field name="name">scoutx.make.subscription.wizard.form</field>
+            <field name="model">scoutx.make.subscription.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Make subscriptions">
+                    <sheet>
+                        <group string="Inscriptions">       
+                            <field name="section_id"/>
+                            <field name="period_id"/>
+                            <field name="role_id"/>
+                        </group>
+                        <group string="Members">
+                            <field name="wizard_line_ids" nolabel="1" create="0"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <group>
+                            <span>
+                                <button string="Send" type="object" class="oe_highlight" name="action_apply"/>
+                                    or
+                                <button string="Cancel" class="oe_link" special="cancel" />
+                            </span>
+                        </group>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="scoutx_make_subscription_line_wizard_form_view" model="ir.ui.view">
+            <field name="name">scoutx.make.subscription.line.wizard.tree</field>
+            <field name="model">scoutx.make.subscription.line.wizard</field>
+            <field name="arch" type="xml">
+                <tree string="Lines" create="0">
+                    <field name="partner_name"/>
+                    <field name="partner_age"/>
+                    <field name="partner_gender"/>
+                    <field name="error" />
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

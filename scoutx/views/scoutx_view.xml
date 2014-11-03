@@ -113,7 +113,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="role_id"/>
+                            <field name="role_id" options="{'no_create': True}"/>
                             <field name="section_id"/>
                             <field name="period_id"/>
                             <field name="partner_id"/>

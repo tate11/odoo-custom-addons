@@ -18,6 +18,7 @@ ScoutX : Base Module
     'website': 'http://www.jejemaes.net/scoutx',
     'depends': ['base'],
     'data': [
+        'wizard/wizard_make_subscription.xml',
         'views/res_partner_view.xml',
         'views/scoutx_view.xml',
         'data/scoutx_data.xml',
