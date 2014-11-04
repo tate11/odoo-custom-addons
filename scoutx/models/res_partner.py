@@ -4,7 +4,7 @@ import datetime
 from datetime import date
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT
 from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
-from openerp import models, fields, api
+from openerp import models, fields, api, _
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
@@ -25,7 +25,21 @@ class res_partner(models.Model):
             delta = (date_end-date_start)
             self.age = float(delta.days) /float(365)
 
-   
+    @api.onchange('section_id')
+    def onchange_section_id(self):
+        if self.section_id:
+            if self.section_id.gender in ('male', 'female'):
+                self.gender = self.section_id.gender
+
+    @api.one
+    @api.constrains('section_id', 'role_id')
+    def _check_section_role(self):
+        if self.section_id:
+            if self.role_id:
+                if not self.role_id.is_section_function:
+                    raise Warning(_('The status/role must be a section function since a section is selected for the member.'))
+
+
     # --------------------------------------------------
     # MODEL FIELDS
     # --------------------------------------------------

@@ -72,7 +72,7 @@ class scoutx_inscription(models.Model):
     role_id = fields.Many2one('scoutx.role', string='Function', domain=[('is_section_function','=',True)],
         help="Function of the person, during the period")
     partner_id = fields.Many2one('res.partner', string='Person', required=True,
-        help="Person participating")
+        help="Person participating", ondelete="cascade")
     section_id = fields.Many2one('scoutx.section', string='Section', required=True,
         help="The section of the inscription")
     period_id = fields.Many2one('scoutx.period', string='Scout Period', required=True,
