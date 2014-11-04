@@ -25,7 +25,7 @@ class res_partner(models.Model):
             delta = (date_end-date_start)
             self.age = float(delta.days) /float(365)
 
-
+   
     # --------------------------------------------------
     # MODEL FIELDS
     # --------------------------------------------------
@@ -41,6 +41,8 @@ class res_partner(models.Model):
         required=True)
     age = fields.Float(string='Age', digits=(10,2), compute='_compute_age', store=False,
         help="Computed age")
+    contact_person = fields.Selection([('parents_only', 'Parents Only'), ('person_only', 'Member Only'), ('parents_and_person', 'Both')], string='Contact Person', required=True, default='parents_only',
+        help="Contact person for news relative to the member")
     role_id = fields.Many2one('scoutx.role', string='Status',
         help="Status of the person")
     section_id = fields.Many2one('scoutx.section', string='Section',

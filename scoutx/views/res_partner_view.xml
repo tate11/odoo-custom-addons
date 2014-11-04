@@ -6,10 +6,8 @@
         <record model="ir.ui.view" id="res_partner_form_view">
             <field name="name">res.partner.form</field>
             <field name="model">res.partner</field>
-            <field name="priority" eval="20"/>
-            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="1"/>
             <field name="arch" type="xml">
-                <xpath expr="//form" position="replace">
                     <form string="Partners">
                         <sheet>
                             <field name="image" widget='image' class="oe_left oe_avatar" options='{"preview_image": "image_medium", "size": [90, 90]}'/>
@@ -20,7 +18,6 @@
                                 <h3>
                                     <field name="totem" placeholder="Totem"/>
                                 </h3>
-                                <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
                             </div>
                             <!-- state button -->
                             <div class="oe_right oe_button_box" name="buttons">
@@ -28,7 +25,24 @@
                             </div>
 
                             <group>
-                                <group>
+                                <group string="Details">
+                                    <field name="title" options='{"no_open": True}'/>
+                                    <field name="gender"/>
+                                    <field name="birthday"/>
+                                    <field name="age"/>
+                                    <field name="category_id" widget="many2many_tags" placeholder="Tags..."/>
+                                    <field name="user_ids" invisible="1"/>
+                                </group>
+
+                                <group string="Scout Informations">
+                                     <field name="section_id"/>
+                                     <field name="role_id"/>
+                                     <field name="contact_person"/>
+                                </group>
+                            </group>
+
+                            <group>
+                                <group string="Address">
                                     <label for="street" string="Address"/>
                                     <div>
                                         <field name="street" placeholder="Street..."/>
@@ -40,43 +54,34 @@
                                         </div>
                                         <field name="country_id" placeholder="Country" class="oe_no_button" options='{"no_open": True}'/>
                                     </div>
-                                    <field name="website" widget="url" placeholder="e.g. www.odoo.com"/>
                                 </group>
-                                <group>
-                                    <field name="phone" placeholder="e.g. +32.81.81.37.00"/>
+                                <group string="Contact">
+                                    <field name="email" widget="email" />
+                                    <field name="phone" placeholder="+32.81.81.37.00"/>
                                     <field name="mobile"/>
                                     <field name="fax"/>
-                                    <field name="user_ids" invisible="1"/>
-                                    <field name="email" widget="email" />
-                                    <field name="title" options='{"no_open": True}'/>
                                 </group>
                             </group>
 
-                            <group string="Scout Details">
-                                 <field name="role_id"/>
-                                 <field name="section_id"/>
-                                 <field name="gender"/>
-                                 <field name="age"/>
-                                 <field name="birthday"/>
+                            <group string="Parents">
+                                <group>
+                                    <field name="mother_id" context="{'show_address': 1}" />
+                                </group>
+                                <group>
+                                    <field name="father_id" context="{'show_address': 1}" />
+                                </group>
                             </group>
 
                             <notebook colspan="4">
-                                <page name='internal_notes' string="Internal Notes">
-                                    <field name="comment" placeholder="Put an internal note..."/>
-                                </page>
-                                <page string="Family">
-                                    <group>
-                                        <field name="mother_id"/>
-                                        <field name="father_id"/>
-                                    </group>
-                               </page>
                                 <page name='scoutx_inscription' string="Inscriptions">
                                     <field name="inscription_ids"/>
+                                </page>
+                                <page name='internal_notes' string="Internal Notes">
+                                    <field name="comment" placeholder="Put an internal note..."/>
                                 </page>
                             </notebook>
                         </sheet>
                     </form>
-                </xpath>
             </field>
         </record>
 
@@ -88,6 +93,7 @@
             <field name="arch" type="xml">
                 <tree string="Animated">
                     <field name="name"/>
+                    <field name="section_id"/>
                     <field name="role_id"/>
                     <field name="gender"/>
                 </tree>
@@ -114,7 +120,29 @@
                     <field name="name"/>
                     <field name="email"/>
                     <field name="totem"/>
+                    <field name="section_id"/>
                 </tree>
+            </field>
+        </record>
+
+
+        <!-- Search view for res.partner -->
+        <record model="ir.ui.view" id="res_partner_all_search_view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+               <search string="Members">
+                    <field name="gender"/>
+                    <field name="role_id"/>
+                    <field name="section_id"/>
+                    <filter string="Without section" name="without_section" domain="[('section_id', '=', False)]"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Role" context="{'group_by':'role_id'}"/>
+                        <filter string="Section" context="{'group_by':'section_id'}"/>
+                        <filter string="Gender" context="{'group_by':'gender'}"/>
+                    </group>
+                </search>
             </field>
         </record>
 
@@ -125,9 +153,9 @@
             <field name="res_model">res.partner</field>
             <field name='view_type'>form</field>
             <field name='view_mode'>tree,form</field>
-            <field name="view_id" ref="res_partner_tree_view"/>
-           <!-- <field name="context">{'type':'out_invoice'}</field>
-            <field name="search_view_id" ref="view_account_invoice_filter"/>-->
+             <!-- <field name="view_id" ref="res_partner_tree_view"/>
+          <field name="context">{'type':'out_invoice'}</field>-->
+            <field name="search_view_id" ref="res_partner_all_search_view"/>
         </record>
 
 
@@ -138,6 +166,7 @@
             <field name='view_mode'>tree,form</field>
             <field name="domain" eval="[('role_id.id','=', ref('scoutx.function_animated'))]" />
             <field name="view_id" ref="res_partner_tree_view"/>
+            <field name="search_view_id" ref="res_partner_all_search_view"/>
         </record>
 
         <record model="ir.actions.act_window" id="action_scoutx_members_chief">
@@ -147,8 +176,23 @@
             <field name='view_mode'>tree,form</field>
             <field name="domain" eval="[('role_id.id','in', [ref('scoutx.function_chief'), ref('scoutx.function_cu')])]" />
             <field name="view_id" ref="res_partner_tree_view"/>
+            <field name="search_view_id" ref="res_partner_all_search_view"/>
         </record>
 
+
+        <record model="ir.actions.act_window.view" id="action_force_view_res_partner_form">
+            <field name="sequence" eval="3"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="res_partner_form_view"/>
+            <field name="act_window_id" ref="action_scoutx_members"/>
+        </record>
+
+         <record model="ir.actions.act_window.view" id="action_force_view_res_partner_tree">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="res_partner_tree_view"/>
+            <field name="act_window_id" ref="action_scoutx_members"/>
+        </record>
 
 
 
