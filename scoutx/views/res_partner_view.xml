@@ -74,7 +74,13 @@
 
                             <notebook colspan="4">
                                 <page name='scoutx_inscription' string="Inscriptions">
-                                    <field name="inscription_ids"/>
+                                    <field name="inscription_ids">
+                                        <tree string="Inscriptions" editable="bottom">
+                                            <field name="role_id"/>
+                                            <field name="section_id"/>
+                                            <field name="period_id"/>
+                                        </tree>
+                                    </field>
                                 </page>
                                 <page name='internal_notes' string="Internal Notes">
                                     <field name="comment" placeholder="Put an internal note..."/>

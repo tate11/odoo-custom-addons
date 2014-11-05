@@ -98,7 +98,7 @@
             <field name="name">scoutx.inscription.tree</field>
             <field name="model">scoutx.inscription</field>
             <field name="arch" type="xml">
-                <tree string="Sections">
+                <tree string="Inscriptions">
                     <field name="role_id"/>
                     <field name="section_id"/>
                     <field name="period_id"/>
