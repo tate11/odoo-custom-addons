@@ -6,13 +6,17 @@ class scoutx_make_subscription_wizard(models.TransientModel):
 
     _name = 'scoutx.make.subscription.wizard'
 
+    @api.model
+    def _get_status(self):
+        status = self.env['ir.model.data'].get_object('scoutx', 'function_animated')
+        return status.id
 
     # --------------------------------------------------
     # MODEL FIELDS
     # --------------------------------------------------
     wizard_line_ids = fields.One2many('scoutx.make.subscription.line.wizard', 'wizard_id', string='Inscriptinos',
         help="List of inscriptions")
-    role_id = fields.Many2one('scoutx.role', string='Function', domain=[('is_section_function','=',True)],
+    role_id = fields.Many2one('scoutx.role', string='Function', domain=[('is_section_function','=',True)], default=_get_status,
         help="Function of the person, during the period")
     section_id = fields.Many2one('scoutx.section', string='Section', required=True,
         help="The section of the inscription")
@@ -25,10 +29,10 @@ class scoutx_make_subscription_wizard(models.TransientModel):
         # Control the age and the gender of the partner with the section
         for line in self.wizard_line_ids:
             if self.section_id:
-                if line.partner_gender != self.section_id.gender and self.section_id.gender != 'mixte':
+                if line.partner_gender and line.partner_gender != self.section_id.gender and self.section_id.gender != 'mixte':
                     line.error = 'error_gender'
                 else:
-                    if self.section_id.start_age and self.section_id.end_age:
+                    if self.section_id.start_age and self.section_id.end_age and bool(self.partner_id.age):
                         if not (self.section_id.start_age <= line.partner_age and line.partner_age <= self.section_id.end_age):
                             line.error = 'error_age'
                         else:

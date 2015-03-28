@@ -35,9 +35,9 @@
                                 </group>
 
                                 <group string="Scout Informations">
-                                     <field name="section_id"/>
-                                     <field name="role_id"/>
-                                     <field name="contact_person"/>
+                                    <field name="group_id" />
+                                    <field name="section_id" />
+                                    <field name="role_id" attrs="{'readonly': [('section_id', '!=', False)]}"/>
                                 </group>
                             </group>
 
@@ -60,6 +60,7 @@
                                     <field name="phone" placeholder="+32.81.81.37.00"/>
                                     <field name="mobile"/>
                                     <field name="fax"/>
+                                    <field name="contact_person"/>
                                 </group>
                             </group>
 
@@ -77,7 +78,7 @@
                                     <field name="inscription_ids">
                                         <tree string="Inscriptions" editable="bottom">
                                             <field name="role_id"/>
-                                            <field name="section_id"/>
+                                            <field name="group_id"/>
                                             <field name="period_id"/>
                                         </tree>
                                     </field>
@@ -112,7 +113,7 @@
             <field name="arch" type="xml">
                 <tree string="Animated">
                     <field name="name"/>
-                    <field name="section_id"/>
+                    <field name="group_id"/>
                     <field name="gender"/>
                 </tree>
             </field>

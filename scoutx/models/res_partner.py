@@ -25,11 +25,18 @@ class res_partner(models.Model):
             delta = (date_end-date_start)
             self.age = float(delta.days) /float(365)
 
-    @api.onchange('section_id')
-    def onchange_section_id(self):
-        if self.section_id:
-            if self.section_id.gender in ('male', 'female'):
-                self.gender = self.section_id.gender
+    @api.one
+    @api.depends('inscription_ids')
+    def _compute_section_id(self):
+        period = self.env['scoutx.period'].find_period()
+        if period:
+            inscriptions = self.env['scoutx.inscription'].search([('period_id', '=', period.id), ('partner_id', '=', self.id)])
+            if inscriptions:
+                self.section_id = inscriptions[0].section_id.id
+            else:
+                self.section_id = False
+        else:
+            self.section_id = False
 
     @api.one
     @api.constrains('section_id', 'role_id')
@@ -53,14 +60,18 @@ class res_partner(models.Model):
         help="Date of the birth of the person.")
     gender = fields.Selection([('male', 'Male'), ('female', 'Female')], string='Gender',
         required=True)
-    age = fields.Float(string='Age', digits=(10,2), compute='_compute_age', store=False,
+    age = fields.Float(string='Age', digits=(10, 2), compute='_compute_age', store=False,
         help="Computed age")
     contact_person = fields.Selection([('parents_only', 'Parents Only'), ('person_only', 'Member Only'), ('parents_and_person', 'Both')], string='Contact Person', required=True, default='parents_only',
         help="Contact person for news relative to the member")
-    role_id = fields.Many2one('scoutx.role', string='Status',
+    role_id = fields.Many2one('scoutx.role', string='Status', default=_get_status, 
         help="Status of the person")
-    section_id = fields.Many2one('scoutx.section', string='Section',
-        help="Section of the person")
+    
+
+    group_id = fields.Many2one('scoutx.group', string='Group',
+        help="Current group of the person")
+    section_id = fields.Many2one('scoutx.section', string='Section', related='group_id.section_id', store=True, readonly=True,
+        help="Current section of the person")
 
     inscription_ids = fields.One2many('scoutx.inscription', 'partner_id', string='Inscriptinos',
         help="List of inscriptions")

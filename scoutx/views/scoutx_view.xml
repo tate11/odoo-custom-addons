@@ -99,8 +99,8 @@
             <field name="model">scoutx.inscription</field>
             <field name="arch" type="xml">
                 <tree string="Inscriptions">
-                    <field name="role_id"/>
-                    <field name="section_id"/>
+                    <field name="partner_id"/>
+                    <field name="group_id"/>
                     <field name="period_id"/>
                 </tree>
             </field>
@@ -114,8 +114,9 @@
                     <sheet>
                         <group>
                             <field name="role_id" options="{'no_create': True}"/>
-                            <field name="section_id"/>
+                            <!--<field name="section_id" domain="[('gender', 'in', ['mixte', partner_id.gender])]"/>-->
                             <field name="period_id"/>
+                            <field name="group_id"/>
                             <field name="partner_id"/>
                         </group>
                     </sheet>
@@ -206,6 +207,13 @@
           <field name="name">Periods</field>
           <field name="sequence" eval="18"/>
           <field name="action" ref="action_scoutx_period"/>
+          <field name="parent_id" ref="scoutx.config_main_menu"/>
+        </record>
+
+        <record id="inscription_list_all" model="ir.ui.menu">
+          <field name="name">Inscriptions</field>
+          <field name="sequence" eval="18"/>
+          <field name="action" ref="action_scoutx_inscription"/>
           <field name="parent_id" ref="scoutx.config_main_menu"/>
         </record>
 
